@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            
+            <Label Text="Анкета" Style="{StaticResource Headline}" />
+
+            <Label Text="ФИО"/>
+            <Entry x:Name="Fio" Placeholder="Иванов Иван Иванович" />
+
+            <Label Text="Номер телефона"/>
+            <HorizontalStackLayout Spacing="10">
+                <Label Text="+7" VerticalOptions="Center" />
+                <Entry x:Name="Phone" 
+                       Placeholder="9999999999"
+                       Keyboard="Numeric" 
+                       TextChanged="Phone_OnTextChanged" MaxLength="10" />
+            </HorizontalStackLayout>
+
+            <Label Text="{Binding Source={x:Reference Age}, Path=Value, StringFormat='Возраст: {0:F0}'}" />
+            <Slider x:Name="Age" Minimum="10" Maximum="100" Value="30" />
+            <Stepper Minimum="10" Maximum="100" Increment="1"
+                     Value="{Binding Source={x:Reference Age}, Path=Value, Mode=TwoWay}" />
+
+            <Label Text="Пол" />
+            <RadioButton x:Name="Gender" 
+                         Content="Мужской"  
+                         Value="male" 
+                         GroupName="Gender" 
+                         IsChecked="True" />
+            <RadioButton x:Name="GenderFemaleRadioButton"
+                         Content="Женский"  
+                         Value="female" 
+                         GroupName="Gender" />
+
+            <HorizontalStackLayout Spacing="10">
+                <CheckBox x:Name="Agreement" 
+                          CheckedChanged="Agreement_OnCheckedChanged" />
+                <Label Text="Согласен отдать почку"
+                       VerticalOptions="Center" >
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
+
+            <Button x:Name="Submit"
+                Text="Отправить"
+                Clicked="OnSubmitClicked"
+                HorizontalOptions="Fill" 
+                IsEnabled="False" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
